@@ -46,7 +46,6 @@ class FrontController extends AbstractController
     public function productDetail($slug, ProductRepository $productRepository): Response
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
-        dd($product->getCategory());
 
         if(!$product){
             return $this->render('front/pages/404.html.twig');
