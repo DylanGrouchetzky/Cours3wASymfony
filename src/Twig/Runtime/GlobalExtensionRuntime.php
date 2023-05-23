@@ -2,17 +2,21 @@
 
 namespace App\Twig\Runtime;
 
+use App\Repository\MenuRepository;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class GlobalExtensionRuntime implements RuntimeExtensionInterface
 {
-    public function __construct()
+    private $menuRepository;
+    public function __construct(MenuRepository $menuRepository)
     {
-        // Inject dependencies if needed
+        $this->menuRepository = $menuRepository;
     }
 
-    public function doSomething($value)
+    public function getMenu()
     {
-        // ...
+        $itemMenu = $this->menuRepository->findAll();
+        dd($itemMenu);
+        return $itemMenu();
     }
 }
