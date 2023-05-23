@@ -1,0 +1,16 @@
+/* GENERAL */
+
+:root{
+    --color-white: #fff; 
+}
+
+.link-style-none { text-decoration: none;}
+.list-style-none { list-style: none;}
+
+/* GENERAL */
+/* TEXT COLOR */
+
+.text-white { color: var(--color-white); }
+
+/* TEXT COLOR */
+

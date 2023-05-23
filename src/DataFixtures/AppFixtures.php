@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
                $date = new \DateTimeImmutable();
                $newProduct = new Product();
                $newProduct
-               ->setName($faker->sentence(3))
+               ->setName($faker->name)
                ->setDescription($faker->text())
                ->setPrice(random_int(10,500))
                ->setPicture('https://picsum.photos/200/300?random')

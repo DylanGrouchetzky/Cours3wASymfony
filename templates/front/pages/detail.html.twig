@@ -6,6 +6,10 @@
 
     <div class="row">
         <div class="col-10 mx-auto">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_front')}}">Accueil</a></li>
+                <li class="breadcrumb-item active">{{product.name}}</li>
+            </ol>
             <div class="row my-5">
                 <div class="col-3">
                     <img src="{{product.picture}}" alt="" style="object-fit:cover;width:100%">
@@ -14,7 +18,10 @@
                     <div>
                         <h2>{{product.name}}</h2>
                         <p>{{product.description}}</p>
-                        <p>{{product.price}}€</p>
+                        <div class="d-flex justify-content-between">
+                            <p>{{product.price}}€</p>
+                            <a href="#" class="btn btn-success"><i class="feather-shopping-cart"></i> Ajouter au panier</a>
+                        </div>
                     </div>
                 </div>
             </div>
