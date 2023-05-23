@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block body %}
+<div class="p-3 row">
+    <h1>{{ block ('title') }}</h1>
+    {% if products|length > 0 %}
+        {% for product in products %}
+            <div class="col-3">
+            <div class="card mb-3">
+                    <h3 class="card-header">{{product.name}} - {{product.price}}€</h3>
+                    <img src="{{product.picture}}" alt="" style="height:10rem!important;width:100%!important;object-fit:cover">
+                    <div class="card-body">
+                        <p class="card-text">{{product.description}}</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="badge bg-dark mb-3">{{product.category.name}}</a><br>
+                        <a href="#" class="btn btn-success"><i class="feather-shopping-cart"></i> Ajouter au panier</a>
+                        <a href="{{path('app_product_detail', {'slug':product.slug})}}" class="btn btn-info">Voir +</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{product.createdAt|date('d/m/Y')}}
+                    </div>
+                </div>
+            </div>
+            
+        {% endfor %}
+    {% else %}
+        <p>Désoler il n'y as pas de produits lié a cette catégorie</p>
+    {% endif %}
+    
+</div>
+{% endblock %}

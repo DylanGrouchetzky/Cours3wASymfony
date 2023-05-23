@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Oups, un problème est survenue{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-10 mx-auto text-center">
+        <h1>{{ block ('title') }}</h1>
+        <p>Désoler cette page n'existe pas</p>
+        <a href="{{path('app_front')}}">Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}
