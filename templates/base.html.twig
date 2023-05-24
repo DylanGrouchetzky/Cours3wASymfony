@@ -18,7 +18,7 @@
         {% endblock %}
     </head>
     <body>
-        {% include "_parts/menu.html.twig" with {'item': block('title')} %}
+        {{getMenu()|raw}}
         {% block body %}{% endblock %}
     </body>
 </html>

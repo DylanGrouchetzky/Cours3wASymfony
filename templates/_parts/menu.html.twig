@@ -6,22 +6,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link {% if item == 'Accueil' %}active{% endif %} " href="{{path('app_front')}}">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if item == 'Catégorie' %}active{% endif %} " href="{{path('app_category_list')}}">Catégorie</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if item == 'Contact' %}active{% endif %}" href="{{path('app_static_page',{'page':'contact'})}}">Contact</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{path('app_static_page',{'page':'presentation'})}}">Présentation</a>
-            <a class="dropdown-item" href="{{path('app_static_page',{'page':'mentionsLegal'})}}">Mentions Légales</a>
-          </div>
-        </li>
+        {% for item in items %}
+          <li class="nav-item">
+            {% if item.paramRoute == null %}
+              <a class="nav-link" href="{{path('router', {'route': item.route})}}">{{item.item}}</a>
+            {% else %}
+              <a class="nav-link" href="{{path('app_static_page', {'page': item.paramRoute})}}">{{item.item}}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

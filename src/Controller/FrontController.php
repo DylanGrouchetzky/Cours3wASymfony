@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +20,11 @@ class FrontController extends AbstractController
         return $this->render('front/index.html.twig', [
             'products' => $products,
         ]);
+    }
+
+    #[Route('/router/{route}',name: 'router')]
+    public function router($route){
+            return $this->redirectToRoute($route);
     }
 
     #[Route('/pages/{page}', name: 'app_static_page')]

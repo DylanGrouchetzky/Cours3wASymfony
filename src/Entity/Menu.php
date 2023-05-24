@@ -17,8 +17,11 @@ class Menu
     #[ORM\Column(length: 255)]
     private ?string $item = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $route = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $paramRoute = null;
 
     public function getId(): ?int
     {
@@ -45,6 +48,18 @@ class Menu
     public function setRoute(string $route): self
     {
         $this->route = $route;
+
+        return $this;
+    }
+
+    public function getParamRoute(): ?string
+    {
+        return $this->paramRoute;
+    }
+
+    public function setParamRoute(string $paramRoute): self
+    {
+        $this->paramRoute = $paramRoute;
 
         return $this;
     }

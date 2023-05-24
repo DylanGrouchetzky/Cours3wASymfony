@@ -3,20 +3,24 @@
 namespace App\Twig\Runtime;
 
 use App\Repository\MenuRepository;
+use Twig\Environment;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class GlobalExtensionRuntime implements RuntimeExtensionInterface
 {
     private $menuRepository;
-    public function __construct(MenuRepository $menuRepository)
+    private $environment;
+    public function __construct(MenuRepository $menuRepository, Environment $environment)
     {
         $this->menuRepository = $menuRepository;
+        $this->environment = $environment;
     }
 
     public function getMenu()
     {
-        $itemMenu = $this->menuRepository->findAll();
-        dd($itemMenu);
-        return $itemMenu();
+        $items = $this->menuRepository->findAll();
+        return $this->environment->render('_parts/menu.html.twig', [
+            'items' => $items,
+        ]);
     }
 }

@@ -24,6 +24,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Route</th>
+                        <th>Paramétre</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,7 +32,20 @@
                     {% for item in items %}
                         <tr>
                             <td>{{item.item}}</td>
-                            <td>{{item.route}}</td>
+                            <td>
+                                {% if item.route == null %}
+                                    aucune route
+                                {% else %}
+                                    {{item.route}}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if item.paramRoute == null %}
+                                    aucun paramétre
+                                {% else %}
+                                    {{item.paramRoute}}
+                                {% endif %}
+                            </td>
                             <td><a href="" class="btn btn-primary"><i class="feather-edit"></i> Editer</a></td>
                         </tr>
                     {% endfor %}

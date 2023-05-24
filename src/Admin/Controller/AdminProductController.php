@@ -42,16 +42,25 @@ class AdminProductController extends AbstractController
 
         if($productForm->isSubmitted() && $productForm->isValid()){
             
-            $date = new \DateTimeImmutable();
             $slugify = new Slugify();
+            $isExist = $this->productRepository->findOneBy(['id' => $newProduct->getId()]);
+            if($isExist){
+                $date = $newProduct->getCreatedAt();
+            }else{
+                $date = new \DateTimeImmutable();
+            }
+            
             $newProduct
             ->setName($productForm->getData()->getName())
             ->setDescription($productForm->getData()->getDescription())
             ->setPrice($productForm->getData()->getPrice())
             ->setPicture('https://picsum.photos/200/300?random')
             ->setSlug($slugify->slugify($newProduct->getName()))
-            ->setCreatedAt($date)
-            ->setCategory($productForm->getData()->getCategory());
+            ->setCategory($productForm->getData()->getCategory())
+            ->setCreatedAt($date);
+            if($isExist){
+                $newProduct->setModifiedAt(new \DateTimeImmutable());
+            }
 
             $this->productRepository->save($newProduct,true);
 

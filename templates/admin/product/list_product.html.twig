@@ -26,6 +26,7 @@
                         <th>Prix</th>
                         <th>Catégorie</th>
                         <th>Date de Création</th>
+                        <th>Date de Modification</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,6 +37,13 @@
                             <td>{{product.price}}€</td>
                             <td>{{product.category.name}}</td>
                             <td>{{product.createdAt|date('d/m/Y')}}</td>
+                            <td>
+                                {% if product.modifiedAt == null %}
+                                    aucune modification
+                                {% else %}
+                                    {{product.modifiedAt|date('d/m/Y')}}
+                                {% endif %}
+                            </td>
                             <td>
                                 <a href="{{path('app_admin_product_add_product', {'id':product.id})}}" class="btn btn-primary"><i class="feather-edit"></i>Editer</a>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</button>
