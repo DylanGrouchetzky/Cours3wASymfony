@@ -22,13 +22,4 @@ class AdminController extends AbstractController
         return $this->render('admin/index.html.twig');
     }
 
-    #[Route('/liste-item-menu', name: 'list_item_menu')]
-    public function  listItemMenu(){
-        $items = $this->menuRepository->findAll();
-
-        return $this->render('admin/itemMenu/list_item.html.twig', [
-            'items' => $items,
-        ]);
-    }
-    
 }
