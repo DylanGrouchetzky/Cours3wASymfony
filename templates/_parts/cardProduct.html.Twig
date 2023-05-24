@@ -1,0 +1,19 @@
+<div class="col-3">
+    <div class="card mb-3">
+        <h4 class="card-header">{{product.name}}</h4>
+        <img src="{{product.picture}}" alt="" style="height:10rem!important;width:100%!important;object-fit:cover">
+        <div class="card-body">
+            <p class="card-text">{{product.description|slice(0,45)}}...</p>
+            <p>
+                <a href="{{path('app_product_detail', {'slug':product.slug})}}">Voir +</a></p>
+            <a href="{{path('app_product_list', {'slug': product.category.slug})}}" class="badge bg-dark mb-3 link-style-none text-white">{{product.category.name}}</a><br>
+            <div class="d-flex justify-content-between">
+                <p>{{product.price}}€</p>
+                <a href="#" class="btn btn-success"><i class="feather-shopping-cart"></i> Ajouter au panier</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{product.createdAt|date('d/m/Y')}}
+        </div>
+    </div>
+</div>

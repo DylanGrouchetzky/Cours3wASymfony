@@ -55,12 +55,25 @@ class AdminCategoryController extends AbstractController
 
             $this->categoryRepository->save($newCategory,true);
             $this->addFlash('success','La catégories a bien été ajouté');
-            return $this->redirectToRoute('app_admin_list_category');
+            return $this->redirectToRoute('app_admin_category_list_category');
 
         }
 
         return $this->render('admin/category/add_category.html.twig', [
             'form' => $categoryFom->createView(),
         ]);
+    }
+
+    #[Route('/category-remove/{id}', name: 'remove')]
+    public function  removeCategory($id){
+        $category = $this->categoryRepository->findOneBy(['id' => $id]);
+        $totalProduct = count($category->getProduct());
+        if($totalProduct > 0){
+            $this->addFlash('error', 'Il reste des produits liée à la catégorie '.$category->getName());
+            return $this->redirectToRoute('app_admin_category_list_category');
+        }
+        $this->categoryRepository->remove($category, true);
+        $this->addFlash('success','La catégories a bien été supprimé');
+        return $this->redirectToRoute('app_admin_list_category');
     }
 }

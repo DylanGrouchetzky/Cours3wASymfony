@@ -5,11 +5,20 @@
 {% block body %}
 <div class="row">
     <div class="col-10 mx-auto">
-        {% for message in app.flashes %}
+        {% for message in app.flashes('success') %}
             <div class="alert alert-dismissible alert-success">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <p>
                     <strong>Succes</strong><br>
+                    {{message[0]}}
+                </p>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <p>
+                    <strong>Oups,une erreur c'est produit!</strong><br>
                     {{message[0]}}
                 </p>
             </div>
@@ -46,7 +55,7 @@
                             </td>
                             <td>
                                 <a href="{{path('app_admin_product_add_product', {'id':product.id})}}" class="btn btn-primary"><i class="feather-edit"></i>Editer</a>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</button>
+                                <a type="button" href="{{path('app_admin_product_remove', {'id':product.id})}}" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

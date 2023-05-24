@@ -73,4 +73,14 @@ class AdminProductController extends AbstractController
         ]);
     }
 
+    #[Route('/remove-product/{id}', name: 'remove')]
+    public function  removeProduct($id){
+        $product = $this->productRepository->findOneBy(['id' => $id]);
+        $this->productRepository->remove($product,true);
+
+        $this->addFlash('success', 'Le produit a bien été supprimer');
+
+        return $this->redirectToRoute('app_admin_product_list_product');
+    }
+
 }

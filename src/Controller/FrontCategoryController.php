@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/category', name:'app_category_')]
 class FrontCategoryController extends AbstractController
 {
-    #[Route('/liste', name:'list')]
+    #[Route('/list', name:'list')]
     public function listCategories(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
