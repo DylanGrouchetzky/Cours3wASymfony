@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <p>
                     <strong>Succes</strong><br>
-                    {{message[0]}}
+                    {{message}}
                 </p>
             </div>
         {% endfor %}
@@ -19,7 +19,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <p>
                     <strong>Oups,une erreur c'est produit!</strong><br>
-                    {{message[0]}}
+                    {{message}}
                 </p>
             </div>
         {% endfor %}
@@ -55,9 +55,28 @@
                             </td>
                             <td>
                                 <a href="{{path('app_admin_product_add_product', {'id':product.id})}}" class="btn btn-primary"><i class="feather-edit"></i>Editer</a>
-                                <a type="button" href="{{path('app_admin_product_remove', {'id':product.id})}}" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</a>
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-product-name="{{ product.name }}" data-product-id="{{ product.id }}" type="button" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</a>
                             </td>
                         </tr>
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Suppression d'un produit</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Attention, voulez-vous vraiment supprimer le produit "{{ product.name }}" ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <div class="modal-delete">
+                                            <a type="button" href="{{path('app_admin_product_remove', {'id':product.id})}}" class="btn btn-danger"><i class="feather-trash-2"></i>Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </tbody>
             </table>
@@ -66,22 +85,20 @@
         {% endif %}
     </div>
 </div>
+{#
+data-set
+#}
+<script>
+  var myModal = document.getElementById('staticBackdrop');
+  myModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget; // Bouton qui a déclenché l'ouverture du modal
+    var productName = button.getAttribute('data-product-name'); // Récupérer la valeur de l'attribut data
+    var productId = button.getAttribute('data-product-id'); // Récupérer la valeur de l'attribut data
+    var modalBody = myModal.querySelector('.modal-body p');
+    var modalFooter = myModal.querySelector('.modal-delete a');
+    modalBody.innerHTML = 'Attention, voulez-vous vraiment supprimer le produit "' + productName + '" ?';
+    modalFooter.href = "{{path('app_admin_product_remove', {'id':id})}}";
+  });
+</script>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Suppression d'un produit</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h2>Attention voulez vous vraiment supprimmer un produit</h2>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Supprimer</button>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}
